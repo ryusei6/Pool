@@ -1,0 +1,2 @@
+selenium==3.141.0
+chromedriver-binary==75.0.3770.8.0
