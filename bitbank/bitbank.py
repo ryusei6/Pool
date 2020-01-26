@@ -1,4 +1,3 @@
-import python_bitbankcc
 import requests
 import hmac
 import hashlib
