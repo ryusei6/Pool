@@ -1,0 +1,23 @@
+#fotter{
+    background-color: #344952;
+    height: 150px;
+    color: #eee;
+}
+
+#fotter p{
+    margin:0;
+    padding-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.fotter_col{
+    float: left;
+    margin-left: 20px;
+    color: gray;
+}
+
+.fotter_menu{
+    list-style-type: none;
+    padding-left: 0;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd"><html>
+<head lang="ja">
+	<meta http-equiv="Content-Type" content="text/css"; charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<title>TOP</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link href="./css/header.css" rel="stylesheet" type="text/css">
+	<link href="./css/form.css" rel="stylesheet" type="text/css">
+	<link href="./css/fotter.css" rel="stylesheet" type="text/css">
+	<link href="./css/style.css" rel="stylesheet" type="text/css">
+	<link href="./css/mailform.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div id="header">
+		<div class="header_left">
+			〇〇株式会社
+		</div>
+		<div class="header_right">
+			<a href="./home.html">TOP</a>
+			<a href="#">企業情報</a>
+			<a href="#">ニュース</a>
+			<a href="#">採用情報</a>
+			<a class="current" href="./form.html">お問い合わせ</a>
+		</div>
+	</div>
+	<h1>お問い合わせ</h1>
+		<form id="mail_form">
+			<dl>
+				<dt>会社名</dt>
+				<dd><input type="text" id="company" name="company" value=""></dd>
+
+				<dt>名前</dt>
+				<dd class="required"><input type="text" id="name_1" name="name_1" value=""> <input type="text" id="name_2" name="name_2" value=""></dd>
+
+				<dt>ふりがな</dt>
+				<dd><input type="text" id="read_1" name="read_1" value=""> <input type="text" id="read_2" name="read_2" value=""></dd>
+
+				<dt>メールアドレス</dt>
+				<dd class="required"><input type="email" id="mail_address" name="mail_address" value=""></dd>
+
+				<dt>メールアドレス<br>(確認用)</dt>
+				<dd class="required"><input type="email" id="mail_address_confirm" name="mail_address_confirm" value=""></dd>
+
+				<dt>電話番号</dt>
+				<dd><input type="tel" id="phone" name="phone" value=""></dd>
+
+				<dt>お問い合わせの内容</dt>
+				<dd class="required"><textarea id="mail_contents" name="mail_contents" cols="40" rows="5"></textarea></dd>
+			</dl>
+
+			<p id="form_submit"><input type="button" id="form_submit_button" value="送信する"></p>
+		</form>
+	<div id="fotter">
+		<div class="fotter_content">
+			<p>〇〇株式会社 ／ tel:03-XXXX-XXXX</p>
+			<p>〒XXX-XXXX 東京都XX区XXX-X-X XXビル XF</p>
+		</div>
+	</div>
+	<script type="text/javascript" src="./js/jquery.autoKana.js"></script>
+	<script type="text/javascript" src="./js/form.js"></script>
+</body>
+</html>

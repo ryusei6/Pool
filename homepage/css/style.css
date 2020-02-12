@@ -1,0 +1,21 @@
+body {
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", Verdana, Arial, sans-serif;
+	color: #454545;
+	line-height: 1.8;
+}
+
+
+body,div,dl,dt,dd,ul,ol,li,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+	margin: 0;
+	padding: 0;
+}
+
+fieldset,img {
+	border: 0;
+	vertical-align: middle;
+}
+
+code,em,strong,th {
+	font-style: normal;
+	font-weight: normal;
+}
