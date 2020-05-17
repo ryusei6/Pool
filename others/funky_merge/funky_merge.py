@@ -43,13 +43,12 @@ def funky_merge(*objs):
             out_obj[key] = funky_merge(*all_obj)
     return out_obj
 
-
 def main():
     obj1 = {"a":1,"b":{"c":2,"d":[2,0],"e":4}}
     obj2 = {"a":2,"b":{"c":1,"d":[1,2,3 ],"f":5}}
     obj3 = {"b":{"d":[4]}}
     data = [obj1,obj2,obj3]
-    
+
     result = funky_merge(*data)
     print(result)
 
