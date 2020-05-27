@@ -117,7 +117,7 @@ def fetch_ticker(pair):
 
 
 def main():
-    assets = ['jpy','btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc']
+    assets = ['jpy', 'btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc']
     asset = assets[2]
     trade_history_list = fetch_trade_history()['data']['trades']
     average = calc_average(trade_history_list, asset)
