@@ -4,9 +4,10 @@ import hashlib
 import datetime
 import json
 import sys
+import settings
 
-API_KEY = '[API_KEY]'
-SECRET_KEY = '[SECRET_KEY]'
+API_KEY = settings.API_KEY
+SECRET_KEY = settings.SECRET_KEY
 
 
 class Api_private_get():
@@ -117,7 +118,7 @@ def fetch_ticker(pair):
 
 
 def main():
-    assets = ['jpy','btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc']
+    assets = ['jpy', 'btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc']
     asset = assets[2]
     trade_history_list = fetch_trade_history()['data']['trades']
     average = calc_average(trade_history_list, asset)
