@@ -28,6 +28,11 @@ class Main extends React.Component {
         this.showAns = this.showAns.bind(this);
         this.checkHasAns = this.checkHasAns.bind(this);
         this.calcAns = this.calcAns.bind(this);
+        this.isCleared = this.isCleared.bind(this);
+    }
+
+    componentDidMount() {
+        this.shuffleCells();
     }
 
     onClickCells(i, j) {
