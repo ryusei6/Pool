@@ -1,13 +1,12 @@
 import React from 'react';
 
-class Controle extends React.Component {
-    render() {
-        return (
-            <div className='controle'>
-                <p>Buttons</p>
-            </div>
-        );
-    }
+function Controle(props) {
+    return (
+        <div className='controle'>
+            <button onClick={()=>{props.showAns()}}>答えを表示</button>
+            <button onClick={()=>{props.shuffleCells()}}>シャッフル</button>
+        </div>
+    );
 }
 
 export default Controle;

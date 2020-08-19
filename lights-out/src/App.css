@@ -34,3 +34,6 @@ h1{
 .off:hover g{
     fill: #40616A;
 }
+.guide g{
+    fill: red;
+}
