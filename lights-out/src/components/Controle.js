@@ -1,10 +1,17 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 function Controle(props) {
     return (
         <div className='controle'>
-            <button onClick={()=>{props.showAns()}}>答えを表示</button>
-            <button onClick={()=>{props.shuffleCells()}}>シャッフル</button>
+            <div className='buttons'>
+                <Button className='button' color="secondary" disableElevation onClick={()=>{props.showAns()}}>
+                    Answer
+                </Button>
+                <Button className='button' color="primary" disableElevation onClick={()=>{props.shuffleCells()}}>
+                    shuffle
+                </Button>
+            </div>
         </div>
     );
 }

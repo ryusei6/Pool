@@ -1,12 +1,13 @@
 import React from 'react';
-
 import Stage from './Stage';
 import Controle from './Controle';
+import AlertDialog from './AlertDialog';
 
 
 class Main extends React.Component {
     constructor(props) {
         super(props);
+        this.child = React.createRef();
 
         let wNum = 5;
         let hNum = 5;
@@ -18,6 +19,7 @@ class Main extends React.Component {
             cells: cells,
             ans: ans,
             guide: false,
+            cleared: false,
         };
 
         this.setToggldCells = this.setToggldCells.bind(this);
@@ -29,10 +31,33 @@ class Main extends React.Component {
         this.checkHasAns = this.checkHasAns.bind(this);
         this.calcAns = this.calcAns.bind(this);
         this.isCleared = this.isCleared.bind(this);
+        this.resetClearedState = this.resetClearedState.bind(this);
     }
 
     componentDidMount() {
         this.shuffleCells();
+    }
+
+    componentDidUpdate(_, prevState) {
+        if (this.state.cells !== prevState.cells) {
+            this.setState({cleared: this.isCleared()});
+        }
+    }
+
+    isCleared() {
+        let cells = JSON.parse(JSON.stringify(this.state.cells));
+        for (let i=0; i<this.state.hNum; i++) {
+            for (let j=0; j<this.state.wNum; j++) {
+                if (cells[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    resetClearedState() {
+        this.setState({cleared: false });
     }
 
     onClickCells(i, j) {
@@ -149,6 +174,12 @@ class Main extends React.Component {
                     state={this.state}
                     shuffleCells={this.shuffleCells}
                     showAns={this.showAns}
+                />
+                <AlertDialog
+                    state={this.state}
+                    ref={this.child}
+                    shuffleCells={this.shuffleCells}
+                    resetClearedState={this.resetClearedState}
                 />
             </div>
         );
