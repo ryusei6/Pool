@@ -31,7 +31,7 @@ class Main extends React.Component {
         this.checkHasAns = this.checkHasAns.bind(this);
         this.calcAns = this.calcAns.bind(this);
         this.isCleared = this.isCleared.bind(this);
-        this.resetClearedState = this.resetClearedState.bind(this);
+        this.resetStateAfterClear = this.resetStateAfterClear.bind(this);
     }
 
     componentDidMount() {
@@ -56,8 +56,9 @@ class Main extends React.Component {
         return true;
     }
 
-    resetClearedState() {
+    resetStateAfterClear() {
         this.setState({cleared: false });
+        this.setState({guide: false });
     }
 
     onClickCells(i, j) {
@@ -179,7 +180,7 @@ class Main extends React.Component {
                     state={this.state}
                     ref={this.child}
                     shuffleCells={this.shuffleCells}
-                    resetClearedState={this.resetClearedState}
+                    resetStateAfterClear={this.resetStateAfterClear}
                 />
             </div>
         );

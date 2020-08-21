@@ -19,7 +19,7 @@ export default function AlertDialog(props) {
     React.useEffect(() => {
         if (props.state.cleared) {
             handleClickOpen();
-            props.resetClearedState();
+            props.resetStateAfterClear();
         }
     })
 
