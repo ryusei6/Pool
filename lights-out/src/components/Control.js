@@ -33,7 +33,7 @@ function Control(props) {
                                 }}
                             >
                             <Box p={2}>
-                                <Typography　variant="caption">アイコンを押すと上下左右のアイコンの色が反転します。<br/>全ての明かりを消してください。</Typography>
+                                <Typography　variant="caption">アイコンを押すと自身と上下左右の合計4つのアイコンの色が反転します。<br/>全ての明かりを消してください。</Typography>
                             </Box>
                             </Popover>
                         </div>
