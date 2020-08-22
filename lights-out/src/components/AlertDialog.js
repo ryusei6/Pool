@@ -31,12 +31,12 @@ export default function AlertDialog(props) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-            <DialogTitle id="alert-dialog-title">CLEAR!</DialogTitle>
-            <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    RESTART
-                </Button>
-            </DialogActions>
+                <DialogTitle id="alert-dialog-title">CLEAR!</DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        RESTART
+                    </Button>
+                </DialogActions>
             </Dialog>
         </div>
     );

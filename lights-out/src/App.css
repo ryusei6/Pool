@@ -1,8 +1,12 @@
 .app {
     text-align: center;
-    max-width: 550px;
-    margin: auto;
-    border: 1px solid;
+    max-width: 580px;
+    margin: 150px auto;
+    /* border: 1px solid; */
+    box-shadow: 0 0 8px gray;
+}
+.header{
+    padding: 10px 0;
 }
 .stage svg{
     width: 70px;
@@ -51,6 +55,13 @@ h1{
     padding: 10px;
     display: inline-block;
 }
+.button{
+    display: inline-block;
+    padding: '6px 8px';
+}
 .MuiDialog-paper{
     width: 250px;
+}
+.control{
+    padding: 5px;
 }

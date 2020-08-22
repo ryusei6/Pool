@@ -1,6 +1,6 @@
 import React from 'react';
 import Stage from './Stage';
-import Controle from './Controle';
+import Control from './Control';
 import AlertDialog from './AlertDialog';
 
 
@@ -171,7 +171,7 @@ class Main extends React.Component {
                     state={this.state}
                     onClickCells={this.onClickCells}
                 />
-                <Controle
+                <Control
                     state={this.state}
                     shuffleCells={this.shuffleCells}
                     showAns={this.showAns}
