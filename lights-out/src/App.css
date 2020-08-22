@@ -1,0 +1,84 @@
+@media screen and (min-width: 481px){
+    .app {
+        text-align: center;
+        max-width: 600px;
+        width: 90%;
+        margin: 150px auto;
+        box-shadow: 0 0 8px gray;
+    }
+    .stage svg{
+        width: 80px;
+        user-select: none;
+        pointer-events: none;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .app {
+        text-align: center;
+        max-width: 480px;
+        width: 90%;
+        margin: 100px auto;
+        box-shadow: 0 0 8px gray;
+    }
+    .stage svg{
+        width: 50px;
+        user-select: none;
+        pointer-events: none;
+    }
+}
+.header{
+    padding: 10px 0;
+}
+.stage table{
+    margin : 0 auto;
+}
+.stage td{
+    padding : 0;
+    position: relative;
+}
+.stage td:active{
+    top: 3px;
+}
+h1{
+    color: #333333;
+}
+.on g{
+    fill: #61DAFB;
+}
+.off g{
+    fill: #333333;
+}
+.on:hover g{
+    fill: #59BCD7;
+}
+.off:hover g{
+    fill: #40616A;
+}
+.guide g{
+    fill: red;
+}
+.cleared{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    background-color:#000000;
+    opacity:0.5;
+    z-index: 100;
+}
+.buttons{
+    padding: 10px;
+    display: inline-block;
+}
+.button{
+    display: inline-block;
+    padding: '6px 8px';
+}
+.MuiDialog-paper{
+    width: 250px;
+}
+.control{
+    padding: 5px;
+}
