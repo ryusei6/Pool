@@ -89,7 +89,7 @@ def calc_benefit(trade_history_list, asset):
                 benefit -= float(trade_history['amount']) * float(trade_history['price']) + float(trade_history['fee_amount_quote'])
             if trade_history['side'] == 'sell':
                 benefit += float(trade_history['amount']) * float(trade_history['price']) + float(trade_history['fee_amount_quote'])
-    jpy_value, asset_value = calc_asset_value(asset)
+    asset_value = calc_asset_value(asset)
     benefit += asset_value
     return round(benefit)
 
@@ -104,12 +104,10 @@ def calc_asset_value(target_asset):
             print('{} には対応していません'.format(target_asset))
             sys.exit()
         onhand_amount = float(asset['onhand_amount'])
-        if asset_name == 'jpy':
-            jpy_value = onhand_amount
-        elif asset_name == target_asset:
+        if asset_name == target_asset:
             pair = target_asset + '_jpy'
             asset_value = onhand_amount*float(fetch_ticker(pair)['data']['last'])
-    return jpy_value, asset_value
+    return asset_value
 
 def fetch_ticker(pair):
     api_public = Api_public('/{}/ticker'.format(pair))
@@ -118,11 +116,14 @@ def fetch_ticker(pair):
 
 
 def main():
-    assets = ['jpy', 'btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc']
-    asset = assets[2]
+    print('0: btc, 1: xrp, 2: ltc, 3: eth, 4: mona, 5: bcc')
+    index = int(input())
+    assets = ['btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc']
+    asset = assets[index]
     trade_history_list = fetch_trade_history()['data']['trades']
     average = calc_average(trade_history_list, asset)
     benefit = calc_benefit(trade_history_list, asset)
+    print('通貨：{}'.format(asset.upper()))
     print('平均：{:.3f}'.format(average))
     print('損益：{}'.format(benefit))
 
