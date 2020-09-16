@@ -5,6 +5,8 @@ import argparse
 import requests
 from bs4 import BeautifulSoup
 import time
+from requests_html import HTMLSession
+
 
 class Yahoo(object):
     def __init__(self):
@@ -12,10 +14,22 @@ class Yahoo(object):
 
     def _create_url(self, keyword, count):
         params = urllib.parse.urlencode(
-            {'p': keyword, 'ei': 'UTF-8', 'b': count}
+            {'p': keyword, 'b': count}
         )
         url = self.url + '?' + params
         return url
+
+    def _fetch_img_url_list(self, url):
+        session = HTMLSession()
+        res = session.get(url)
+        res.html.render()
+        img_tags = res.html.find('img', first=False)
+        img_url_list = []
+        for i in range(len(img_tags)):
+            img_src = img_tags[i].attrs.get('src')
+            if img_src:
+                img_url_list.append(img_src)
+        return img_url_list
 
     def search(self, keyword, max):
         print('searching \'{}\'...'.format(keyword))
@@ -26,22 +40,16 @@ class Yahoo(object):
         for i in range(max_page):
             url = self._create_url(keyword, count)
             count += 20
-
-            html = requests.get(url).text
-            soup = BeautifulSoup(html, 'lxml') # lxml: C言語で高速、html.parser: Pythonで遅い
-            tags = soup.find_all("img")
-            image_url_list = [tag.get("src") for tag in tags][:20]
-
-            if not len(image_url_list):
+            img_url_list = self._fetch_img_url_list(url)
+            if not len(img_url_list):
                 print('-> No more images')
                 break
-            elif len(image_url_list) > max - total:
-                results += image_url_list[: max - total]
+            elif len(img_url_list) > max - total:
+                results += img_url_list[: max - total]
                 break
             else:
-                results += image_url_list
-                total += len(image_url_list)
-
+                results += img_url_list
+                total += len(img_url_list)
         print('-> Found', str(len(results)), 'images')
         return results
 
@@ -61,14 +69,17 @@ def input():
 
     return {'imgs_dir': imgs_dir, 'target_name': target_name, 'number': number}
 
-def download(results,imgs_dir,target_name):
+def download(results, imgs_dir, target_name):
     download_errors = []
     for i, url in enumerate(results):
         print('-> Downloading image', str(i + 1).zfill(4), end=' ')
+        img_dir = os.path.join(imgs_dir, target_name)
+        if not os.path.isdir(img_dir):
+            os.makedirs(img_dir)
         try:
             urllib.request.urlretrieve(
                 url,
-                os.path.join(imgs_dir, target_name, str(i + 1).zfill(4) + '.jpg'),
+                os.path.join(img_dir, str(i + 1).zfill(4) + '.jpg'),
             )
             print('successful')
             time.sleep(1)
@@ -87,6 +98,7 @@ def main():
     yahoo = Yahoo()
     results = yahoo.search(input_data['target_name'], input_data['number'])
     download(results,input_data['imgs_dir'], input_data['target_name'])
+
 
 if __name__ == '__main__':
     main()
