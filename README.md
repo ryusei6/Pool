@@ -1,5 +1,5 @@
 # Pool
-python3.7.0
+python3.7
 
 ## Install
 ```
