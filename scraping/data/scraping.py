@@ -63,17 +63,13 @@ def input():
     target_name = args.target
     number = args.number
     imgs_dir = args.directory
-
-    os.makedirs(imgs_dir, exist_ok=True)
-    os.makedirs(os.path.join(imgs_dir, target_name), exist_ok=True)
-
     return {'imgs_dir': imgs_dir, 'target_name': target_name, 'number': number}
 
 def download(results, imgs_dir, target_name):
     download_errors = []
     for i, url in enumerate(results):
         print('-> Downloading image', str(i + 1).zfill(4), end=' ')
-        img_dir = os.path.join(imgs_dir, target_name)
+        img_dir = os.path.join(imgs_dir, 'original', target_name)
         if not os.path.isdir(img_dir):
             os.makedirs(img_dir)
         try:
