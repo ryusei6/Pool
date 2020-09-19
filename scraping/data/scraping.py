@@ -1,9 +1,6 @@
 import os
-import json
 import urllib
 import argparse
-import requests
-from bs4 import BeautifulSoup
 import time
 from requests_html import HTMLSession
 
