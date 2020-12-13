@@ -1,0 +1,74 @@
+入力例 / Example input
+const nodes = [
+  {
+    type: "h1",
+    value: 1,
+    children: [
+      {
+        type: "p",
+        value: 2,
+      }
+    ],
+  },
+  {
+    type: "h2",
+    value: 3,
+    children: [
+      {
+        type: "p",
+        value: 4,
+        children: [
+          {
+            type: "p",
+            value: 5,
+          },
+          {
+            type: "h3",
+            value: 6,
+          },
+        ],
+      },
+      {
+        type: "p",
+        value: 7,
+      },
+      {
+        type: "h3",
+        value: 8,
+        children: [
+          {
+            type: "h3",
+            value: 9,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "h2",
+    value: 11,
+    children: [
+      {
+        type: "p",
+        value: 10,
+      },
+    ],
+  },
+]
+実行 / Execution
+const result = segmentation(nodes)
+出力例 / Example output
+// result
+[
+  ["h1:1", "p:2"],
+  ["h2:3", "p:4", "p:5" ],
+  ["h3:6", "p:7"],
+  ["h3:8"],
+  ["h3:9"],
+  ["h2:11", "p:10"],
+]
+ソリューション仕様
+入力配列とすべての要素は、実行後もそのままでなければなりません。
+ノードは任意のレベルの深度を持つことができます。 ネストされた子の深い層を持つことができます。
+結果は、最初の要素が常にノードタイプ h *で始まる二次元配列である必要があります
+結果の配列の各要素は、 ：で連結された typeと valueの文字列です。
