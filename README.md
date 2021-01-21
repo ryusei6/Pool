@@ -8,4 +8,8 @@ $ pip install -r requirements.txt
 
 ## 作ったやつ
 ### lights-out
-https://lights-out-f975d.web.app/
+Webアプリ  
+https://lights-out-f975d.web.app/  
+
+LTスライド  
+https://www2.slideshare.net/cdleyouth/youth-lt-1-kadota
