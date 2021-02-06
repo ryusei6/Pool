@@ -8,7 +8,7 @@ import settings
 
 API_KEY = settings.API_KEY
 SECRET_KEY = settings.SECRET_KEY
-ASSETS = ['btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc', 'xlm', 'qtum']
+ASSETS = ['all', 'btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc', 'xlm', 'qtum']
 REJECT_ASSETS = []
 
 
@@ -65,37 +65,37 @@ def fetch_trade_history():
 def calc_average(trade_history_list, asset):
     trade_history_list.reverse()
     pair = asset + '_jpy'
-    average = 0
-    count_before = 0
+    value_total = 0
+    amount_total = 0
     count_now = 0
+    sign = 1
     for trade_history in trade_history_list:
         if trade_history['pair'] == pair:
             if trade_history['side'] == 'buy':
-                count_now = float(trade_history['amount'])
-                price_now = float(trade_history['price'])
-                value_before = count_before * average
-                value_now = count_now * price_now
-                average = (value_before+value_now)/(count_before+count_now)
-                value_before = value_now
-                count_before += count_now
-            if trade_history['side'] == 'sell':
-                count_now = float(trade_history['amount'])
-                count_before -= count_now
-    return average
+                sign = 1
+            elif trade_history['side'] == 'sell':
+                sign = -1
+            count_now = float(trade_history['amount'])
+            price_now = float(trade_history['price'])
+            value_total += sign * count_now * price_now
+            amount_total += sign * count_now
+    if amount_total < 1e-10:
+        return 0
+    return value_total / amount_total
 
 
-def calc_benefit(trade_history_list, asset):
+def calc_profit(trade_history_list, asset):
     pair = asset + '_jpy'
-    benefit = 0
+    profit = 0
     for trade_history in trade_history_list:
         if trade_history['pair'] == pair:
             if trade_history['side'] == 'buy':
-                benefit -= float(trade_history['amount']) * float(trade_history['price']) + float(trade_history['fee_amount_quote'])
+                profit -= float(trade_history['amount']) * float(trade_history['price']) + float(trade_history['fee_amount_quote'])
             if trade_history['side'] == 'sell':
-                benefit += float(trade_history['amount']) * float(trade_history['price']) + float(trade_history['fee_amount_quote'])
+                profit += float(trade_history['amount']) * float(trade_history['price']) + float(trade_history['fee_amount_quote'])
     asset_value = calc_asset_value(asset)
-    benefit += asset_value
-    return round(benefit)
+    profit += asset_value
+    return round(profit)
 
 
 def calc_asset_value(target_asset):
@@ -132,17 +132,42 @@ def asset_index_input():
         return asset_index_input()
 
 
+def show_pl(asset, average, profit):
+    print('-'*15)
+    print('通貨：{}'.format(asset.upper()))
+    print('平均：{:.3f}'.format(average))
+    print('損益：{}'.format(profit))
+
+
+def calc_all_assets_pl(trade_history_list):
+    profit_total = 0
+    for asset in ASSETS:
+        if asset == 'all':
+            continue
+        profit = calc_asset_pl(trade_history_list, asset)
+        profit_total += profit
+    print('-'*25)
+    print('損益（total）：{}'.format(profit_total))
+    print('-'*25)
+
+
+def calc_asset_pl(trade_history_list, asset):
+    average = calc_average(trade_history_list, asset)
+    profit = calc_profit(trade_history_list, asset)
+    show_pl(asset, average, profit)
+    return profit
+
+
 def main():
-    # 0: btc, 1: xrp, 2: ltc, 3: eth, 4: mona, 5: bcc, 6: xlm, 7: qtum
+    # 0: all, 1: btc, 2: xrp, 3: ltc, 4: eth, 5: mona, 6: bcc, 7: xlm, 8: qtum
     print(', '.join([str('{}: {}'.format(i, asset_name)) for i, asset_name in enumerate(ASSETS)]))
     index = asset_index_input()
     asset = ASSETS[index]
     trade_history_list = fetch_trade_history()['data']['trades']
-    average = calc_average(trade_history_list, asset)
-    benefit = calc_benefit(trade_history_list, asset)
-    print('通貨：{}'.format(asset.upper()))
-    print('平均：{:.3f}'.format(average))
-    print('損益：{}'.format(benefit))
+    if asset == 'all':
+        calc_all_assets_pl(trade_history_list)
+    else:
+        calc_asset_pl(trade_history_list, asset)
 
 
 if __name__ == '__main__':
