@@ -65,24 +65,23 @@ def fetch_trade_history():
 def calc_average(trade_history_list, asset):
     trade_history_list.reverse()
     pair = asset + '_jpy'
-    average = 0
-    count_before = 0
+    value_total = 0
+    amount_total = 0
     count_now = 0
+    sign = 1
     for trade_history in trade_history_list:
         if trade_history['pair'] == pair:
             if trade_history['side'] == 'buy':
-                count_now = float(trade_history['amount'])
-                price_now = float(trade_history['price'])
-                print(count_now, price_now)
-                value_before = count_before * average
-                value_now = count_now * price_now
-                average = (value_before+value_now)/(count_before+count_now)
-                value_before = value_now
-                count_before += count_now
-            if trade_history['side'] == 'sell':
-                count_now = float(trade_history['amount'])
-                count_before -= count_now
-    return average
+                sign = 1
+            elif trade_history['side'] == 'sell':
+                sign = -1
+            count_now = float(trade_history['amount'])
+            price_now = float(trade_history['price'])
+            value_total += sign * count_now * price_now
+            amount_total += sign * count_now
+    if amount_total < 1e-10:
+        return 0
+    return value_total / amount_total
 
 
 def calc_profit(trade_history_list, asset):
@@ -134,7 +133,7 @@ def asset_index_input():
 
 
 def show_pl(asset, average, profit):
-    print('-'*7 + asset + '-'*7)
+    print('-'*15)
     print('通貨：{}'.format(asset.upper()))
     print('平均：{:.3f}'.format(average))
     print('損益：{}'.format(profit))
