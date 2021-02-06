@@ -12,7 +12,7 @@ ASSETS = ['all', 'btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc', 'xlm', 'qtum']
 REJECT_ASSETS = []
 
 
-class Api_private_get():
+class Api_private():
     def __init__(self, url):
         self.url = url
         self.server_url = 'https://api.bitbank.cc/v1'
@@ -57,7 +57,7 @@ class Api_public():
 
 def fetch_trade_history():
     url = '/user/spot/trade_history'
-    api = Api_private_get(url)
+    api = Api_private(url)
     res = api.get_response()
     return res
 
@@ -100,7 +100,7 @@ def calc_profit(trade_history_list, asset):
 
 def calc_asset_value(target_asset):
     url = '/user/assets'
-    api = Api_private_get(url)
+    api = Api_private(url)
     res = api.get_response()
     for asset in res['data']['assets']:
         asset_name = asset['asset']
