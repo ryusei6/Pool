@@ -8,6 +8,8 @@ import settings
 
 API_KEY = settings.API_KEY
 SECRET_KEY = settings.SECRET_KEY
+ASSETS = ['btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc', 'xlm', 'qtum']
+REJECT_ASSETS = []
 
 
 class Api_private_get():
@@ -59,6 +61,7 @@ def fetch_trade_history():
     res = api.get_response()
     return res
 
+
 def calc_average(trade_history_list, asset):
     trade_history_list.reverse()
     pair = asset + '_jpy'
@@ -80,6 +83,7 @@ def calc_average(trade_history_list, asset):
                 count_before -= count_now
     return average
 
+
 def calc_benefit(trade_history_list, asset):
     pair = asset + '_jpy'
     benefit = 0
@@ -93,14 +97,14 @@ def calc_benefit(trade_history_list, asset):
     benefit += asset_value
     return round(benefit)
 
+
 def calc_asset_value(target_asset):
     url = '/user/assets'
     api = Api_private_get(url)
     res = api.get_response()
     for asset in res['data']['assets']:
         asset_name = asset['asset']
-        reject_asset = ['ltc', 'eth']
-        if target_asset in reject_asset:
+        if target_asset in REJECT_ASSETS:
             print('{} には対応していません'.format(target_asset))
             sys.exit()
         onhand_amount = float(asset['onhand_amount'])
@@ -109,17 +113,30 @@ def calc_asset_value(target_asset):
             asset_value = onhand_amount*float(fetch_ticker(pair)['data']['last'])
     return asset_value
 
+
 def fetch_ticker(pair):
     api_public = Api_public('/{}/ticker'.format(pair))
     res = api_public.get_response()
     return res
 
 
+def asset_index_input():
+    try:
+        asset_index = int(input())
+        if asset_index >= len(ASSETS):
+            print('0~{}から選んでください'.format(len(ASSETS)-1))
+            return asset_index_input()
+        return asset_index
+    except ValueError:
+        print('数字を入力してください')
+        return asset_index_input()
+
+
 def main():
-    print('0: btc, 1: xrp, 2: ltc, 3: eth, 4: mona, 5: bcc, 6: xlm')
-    index = int(input())
-    assets = ['btc', 'xrp', 'ltc', 'eth', 'mona', 'bcc', 'xlm']
-    asset = assets[index]
+    # 0: btc, 1: xrp, 2: ltc, 3: eth, 4: mona, 5: bcc, 6: xlm, 7: qtum
+    print(', '.join([str('{}: {}'.format(i, asset_name)) for i, asset_name in enumerate(ASSETS)]))
+    index = asset_index_input()
+    asset = ASSETS[index]
     trade_history_list = fetch_trade_history()['data']['trades']
     average = calc_average(trade_history_list, asset)
     benefit = calc_benefit(trade_history_list, asset)
