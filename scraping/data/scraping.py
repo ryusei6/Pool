@@ -1,4 +1,5 @@
 import os
+
 import urllib
 import argparse
 import time
@@ -28,11 +29,11 @@ class Yahoo(object):
                 img_url_list.append(img_src)
         return img_url_list
 
-    def search(self, keyword, max):
+    def search(self, keyword, max, start_index):
         print('searching \'{}\'...'.format(keyword))
         results = []
         total = 0
-        count = 1
+        count = start_index
         max_page = (max-1)//20 + 1
         for i in range(max_page):
             url = self._create_url(keyword, count)
@@ -50,21 +51,21 @@ class Yahoo(object):
         print('-> Found', str(len(results)), 'images')
         return results
 
-def input():
+
+def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-t', '--target', help='target name', type=str, required=True)
     parser.add_argument('-n', '--number', help='number of images', type=int, required=True)
     parser.add_argument('-d', '--directory', help='download location', type=str, default='./imgs')
+    parser.add_argument('-i', '--start_index', help='start to search img from this index', type=int, default='1')
     args = parser.parse_args()
+    return vars(args)
 
-    target_name = args.target
-    number = args.number
-    imgs_dir = args.directory
-    return {'imgs_dir': imgs_dir, 'target_name': target_name, 'number': number}
 
-def download(results, imgs_dir, target_name):
+def download(results, imgs_dir, target_name, start_index):
     download_errors = []
     for i, url in enumerate(results):
+        i += start_index - 1
         print('-> Downloading image', str(i + 1).zfill(4), end=' ')
         img_dir = os.path.join(imgs_dir, 'original', target_name)
         if not os.path.isdir(img_dir):
@@ -86,11 +87,12 @@ def download(results, imgs_dir, target_name):
     print('├─ Successful downloaded', len(results) - len(download_errors), 'images')
     print('└─ Failed to download', len(download_errors), 'images', *download_errors)
 
+
 def main():
-    input_data = input()
+    args = get_args()
     yahoo = Yahoo()
-    results = yahoo.search(input_data['target_name'], input_data['number'])
-    download(results,input_data['imgs_dir'], input_data['target_name'])
+    results = yahoo.search(args['target'], args['number'], args['start_index'])
+    download(results, args['directory'], args['target'], args['start_index'])
 
 
 if __name__ == '__main__':
