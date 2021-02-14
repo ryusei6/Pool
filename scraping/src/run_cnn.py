@@ -19,31 +19,29 @@ from sklearn.metrics import classification_report
 
 
 load = True
+epochs = 100
 batch_size = 128
-img_data = []
-img_label = []
-categories = ['Larry_Page','Jeff_Bezos','Mark_Zuckerberg', 'others']
 img_size = (150,150,3)
-n_classes = len(categories)
+
 ROOT_DIR = '../data/imgs'
 LOGS_ROOT_DIR = '../logs/'
 EXEC_TIME = datetime.now().strftime("%Y%m%d-%H%M%S")
 LOG_DIR = os.path.join(LOGS_ROOT_DIR, EXEC_TIME)
+MODEL_DIR = os.path.join(LOGS_ROOT_DIR, '20210214-090647')
+
+categories = ['Larry_Page','Jeff_Bezos','Mark_Zuckerberg', 'others']
+n_classes = len(categories)
 
 
 def _make_sample(files):
+    img_data = []
+    img_label = []
     for category, file_name in files:
-        _add_sample(category, file_name)
+        img = Image.open(file_name).convert("RGB").resize((150, 150))
+        data = np.asarray(img)
+        img_data.append(data)
+        img_label.append(category)
     return np.array(img_data), np.array(img_label)
-
-
-def _add_sample(category, file_name):
-    img = Image.open(file_name)
-    img = img.convert("RGB")
-    img = img.resize((150, 150))
-    data = np.asarray(img)
-    img_data.append(data)
-    img_label.append(category)
 
 
 def read_img():
@@ -93,11 +91,11 @@ def learn_model(x_train, y_train, x_val, y_val):
     early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss', patience=2, verbose=0, mode='auto')
     history = model.fit(x_train,
                         y_train,
-                        epochs=1,
+                        epochs=epochs,
                         batch_size=batch_size,
                         validation_data=(x_val, y_val),
                         callbacks=[early_stopping])
-    model.save('model.h5', include_optimizer=False)
+    model.save(os.path.join(LOG_DIR, 'model.h5'), include_optimizer=False)
     return model, history
 
 
@@ -152,7 +150,7 @@ def main():
     x_train, y_train, x_test, y_test, x_val, y_val = read_img()
     # check_data(x_train, y_train, x_test, y_test, x_val, y_val)
     if load:
-        model = load_model('model.h5', compile=False)
+        model = load_model(os.path.join(MODEL_DIR, 'model.h5'), compile=False)
     else:
         model, history = learn_model(x_train, y_train, x_val, y_val)
         save_history_loss_and_acc(history)
