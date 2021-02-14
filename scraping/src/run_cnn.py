@@ -30,6 +30,7 @@ LOGS_ROOT_DIR = '../logs/'
 EXEC_TIME = datetime.now().strftime("%Y%m%d-%H%M%S")
 LOG_DIR = os.path.join(LOGS_ROOT_DIR, EXEC_TIME)
 
+
 def _make_sample(files):
     for category, file_name in files:
         _add_sample(category, file_name)
@@ -124,20 +125,17 @@ def img_show(model, x_test, y_test):
     y_pred = model.predict(x_test)
     y_test = [int(y_test[i].argmax()) for i in range(len(y_test))]
     y_pred = [int(y_pred[i].argmax()) for i in range(len(y_pred))]
-    print(y_test[:5])
-    print(y_pred[:5])
+
     score_dict = classification_report(y_test, y_pred, output_dict=True)
     with open(os.path.join(LOG_DIR, 'classification_report.json'), 'w') as f:
         json.dump(score_dict, f, indent=4)
 
-    fig, axes = plt.subplots(1,10, figsize=(20, 20))
+    axes_num = 10
+    fig, axes = plt.subplots(1,axes_num, figsize=(20, 20))
     with open(os.path.join(LOG_DIR, 'predict.json'), 'w') as f:
-        dict = {
-            'predict': y_pred,
-            'label': y_test,
-        }
+        dict = {'predict': y_pred, 'label': y_test}
         json.dump(dict, f, indent=4)
-    for i in range(10):
+    for i in range(axes_num):
         axes[i].set_title('predict: {}\nanswer: {}'.format(str(y_pred[i]), str(y_test[i])))
         axes[i].axis("off")
         axes[i].imshow(x_test[i].reshape(150,150,3))
