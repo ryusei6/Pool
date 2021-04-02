@@ -7,6 +7,7 @@ import cv2
 CHECK_IMG_DIR = '../data/imgs/extended'
 IMG_SIZE = (150, 150, 3)
 
+
 class InputImgSizeTestCase(unittest.TestCase):
     '''
     face_paddingの画像サイズが(200, 200, 3)になっているかのチェック

@@ -19,15 +19,17 @@ from sklearn.metrics import classification_report
 
 
 load = True
+model_date = '20210214-123536'
 epochs = 100
 batch_size = 128
 img_size = (150,150,3)
+patience = 2
 
 ROOT_DIR = '../data/imgs'
 LOGS_ROOT_DIR = '../logs/'
 EXEC_TIME = datetime.now().strftime("%Y%m%d-%H%M%S")
 LOG_DIR = os.path.join(LOGS_ROOT_DIR, EXEC_TIME)
-MODEL_DIR = os.path.join(LOGS_ROOT_DIR, '20210214-090647')
+MODEL_DIR = os.path.join(LOGS_ROOT_DIR, model_date)
 
 categories = ['Larry_Page','Jeff_Bezos','Mark_Zuckerberg', 'others']
 n_classes = len(categories)
@@ -88,7 +90,7 @@ def learn_model(x_train, y_train, x_val, y_val):
                  metrics=['accuracy'])
     model.summary()
 
-    early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss', patience=2, verbose=0, mode='auto')
+    early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience, verbose=0, mode='auto')
     history = model.fit(x_train,
                         y_train,
                         epochs=epochs,
@@ -103,16 +105,16 @@ def save_history_loss_and_acc(history):
     fig, axes = plt.subplots(1,2)
     axes[0].plot(history.history['loss'])
     axes[0].plot(history.history['val_loss'])
-    axes[0].title('model loss')
-    axes[0].ylabel('loss')
-    axes[0].xlabel('epoch')
+    axes[0].set_title('model loss')
+    axes[0].set_ylabel('loss')
+    axes[0].set_xlabel('epoch')
     axes[0].legend(['train', 'test'], loc='best')
 
     axes[1].plot(history.history['acc'])
     axes[1].plot(history.history['val_acc'])
-    axes[1].title('model accuracy')
-    axes[1].ylabel('accuracy')
-    axes[1].xlabel('epoch')
+    axes[1].set_title('model accuracy')
+    axes[1].set_ylabel('accuracy')
+    axes[1].set_xlabel('epoch')
     axes[1].legend(['train', 'test'], loc='best')
 
     fig.savefig(os.path.join(LOG_DIR, 'history_loss.jpg'))
