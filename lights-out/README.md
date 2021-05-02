@@ -73,6 +73,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## デプロイ手順
 ```
+$ npm run build
 $ firebase deploy
 ```
 
@@ -83,5 +84,6 @@ $ firebase deploy
 ```
 $ firebase logout
 $ firebase login
+$ npm run build
 $ firebase deploy
 ```
