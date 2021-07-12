@@ -1,0 +1,60 @@
+.album {
+    display: grid;
+    gap: 10px;
+    width: 70%;
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-template-rows: 200px 200px 200px 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+}
+
+.album > div > img {
+    height: 130px;
+    width: 130px;
+    grid-template-areas:"a";
+    place-items: center;
+}
+
+.trackPreview {
+    display: grid;
+    gap: 20px;
+    width: 50%;
+    grid-template-columns: 300px 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trackPreview > img {
+    width: 90%;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.track-text-area {
+    width: 100%;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+}
+
+.artist-names {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.track-name {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.preview-url {
+    /* margin-top: 100px; */
+    position: absolute;
+    bottom: 0;
+}
