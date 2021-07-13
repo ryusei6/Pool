@@ -1,3 +1,13 @@
+# spotify-music-search-app
+楽曲の検索、再生をするWebアプリ  
+
+## 概要
+アーティスト名を入力すると、そのアーティストのアルバムが表示される。  
+<img width="720" alt="track" src="https://user-images.githubusercontent.com/45719980/125233942-98f85b00-e31a-11eb-99c3-9eb9995c5ab1.png">
+
+アルバムをクリックすると、そのアルバムに入っている楽曲を選択、試聴できる。  
+<img width="720" alt="album" src="https://user-images.githubusercontent.com/45719980/125233961-a44b8680-e31a-11eb-88fe-931d3c8de259.png">
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -70,8 +80,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 ## 参考
-[corona-react-free-admin-template](https://github.com/BootstrapDash/corona-react-free-admin-template)
-
-[spotify API](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations)
-[Spotify API + Reactを使って似ている曲を教えてくれるアプリを作ってみた](https://qiita.com/afroman09/items/cc129e57eadc9ae844fd)
+[spotify API](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations)  
+[Spotify API + Reactを使って似ている曲を教えてくれるアプリを作ってみた](https://qiita.com/afroman09/items/cc129e57eadc9ae844fd)  
 [ReactでSpotify音楽検索アプリを作成する方法](https://ichi.pro/react-de-spotify-ongaku-kensaku-apuri-o-sakuseisuru-hoho-32374523985477)

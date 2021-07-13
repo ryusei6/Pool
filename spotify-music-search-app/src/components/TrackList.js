@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
-import { AutoSizer, Column, Table } from 'react-virtualized';
+import {AutoSizer, Column, Table} from 'react-virtualized';
 
 
 const styles = (theme) => ({
@@ -189,7 +189,7 @@ export default function TrackList(props) {
 			}}>
 			<VirtualizedTable
 				rowCount={rows.length}
-				rowGetter={({ index }) => rows[index]}
+				rowGetter={({index}) => rows[index]}
                 onRowClick={rowClick}
 
 				columns={[

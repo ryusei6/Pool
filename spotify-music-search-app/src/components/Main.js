@@ -1,13 +1,13 @@
 import {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import ArtistView from './ArtistView';
 import SimilarPage from './SimilarPage';
 import './Main.css';
 
 
 const Main = (props) => {
-    const [keyword, setState] = useState('');
+    const [artist, setState] = useState('');
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
             console.log(event.target.value);
@@ -31,9 +31,8 @@ const Main = (props) => {
     return (
         <div>
             <div className='text-field'>
-                <StyledTextField 
-                    id='keyword'
-                    label='Title'
+                <StyledTextField
+                    label='Artist'
                     variant='filled'
                     onKeyPress={handleEnter} 
                     style={{
@@ -41,7 +40,7 @@ const Main = (props) => {
                     }}
                 />
             </div>
-            <ArtistView keyword={keyword} token={props.token} />
+            <ArtistView artist={artist} token={props.token} />
             {/* <SimilarPage token={props.token} /> */}
         </div>
     )

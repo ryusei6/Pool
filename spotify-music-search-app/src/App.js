@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import './App.css';
 import Login from './components/Login.js';
 import Main from './components/Main.js';
-import { getTokenFromUrl } from './components/Spotify';
+import {getTokenFromUrl} from './components/Spotify';
 
 
 function App() {

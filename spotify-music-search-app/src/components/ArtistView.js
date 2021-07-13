@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import TrackView from './TrackView';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 
 const ArtistView = (props) => {
@@ -11,7 +11,7 @@ const ArtistView = (props) => {
     const getArtist = () => {
         setArtistInformation([]);
         setAlbum([]);
-        axios(`https://api.spotify.com/v1/search?q=${props.keyword}&type=artist&limit=20`,{
+        axios(`https://api.spotify.com/v1/search?q=${props.artist}&type=artist&limit=20`,{
             method: 'GET',
             headers: {Authorization: 'Bearer ' + props.token},
         }).then((artistContentsReaponse) => {
@@ -25,23 +25,23 @@ const ArtistView = (props) => {
 
     useEffect(() => {
         console.log(props);
-        if (props.keyword === '') {
+        if (props.artist === '') {
             console.log('no-data');
         } else {
             getArtist();
         }
-    },　[props.keyword]);
+    },　[props.artist]);
 
 
     const trackView = (id) => {
         axios(`https://api.spotify.com/v1/artists/${id}/albums?market=ES&limit=10`,{
-            method: "GET",
-            headers: { Authorization: "Bearer " + props.token },
+            method: 'GET',
+            headers: {Authorization: 'Bearer ' + props.token},
         }).then((tracksReaponse) => {
             console.log(tracksReaponse.data.items);
             setAlbum(tracksReaponse.data.items);
         }).catch((err) => {
-            console.log("err:", err);
+            console.log('err:', err);
         });
         setArtistInformation([]);
     };
@@ -53,11 +53,7 @@ const ArtistView = (props) => {
                     <p onClick={() => trackView(id)}>{name}</p>
                 </div>
             ))}
-            <Router>
-            <Route path="/Search"/>
-                <TrackView album={album} token={props.token} />
-            </Router>
-
+            <TrackView album={album} token={props.token} />
         </div>
     )
 };

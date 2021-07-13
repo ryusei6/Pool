@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
 import ReactAudioPlayer from "react-audio-player";
 import TrackList from './TrackList';
 
@@ -8,7 +7,6 @@ import './TrackView.css';
 
 
 const TrackView = (props) => {
-    const history = useHistory();
     const [albumTrack, setAlbumTrack] = useState([]);
     const [albumImg, setAlbumImg] = useState('')
     const [trackId, setTrackId] = useState('')
