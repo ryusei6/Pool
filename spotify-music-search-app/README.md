@@ -3,10 +3,10 @@
 
 ## 概要
 アーティスト名を入力すると、そのアーティストのアルバムが表示される。  
-<img width="720" alt="track" src="https://user-images.githubusercontent.com/45719980/125233942-98f85b00-e31a-11eb-99c3-9eb9995c5ab1.png">
+<img width="720" alt="album" src="https://user-images.githubusercontent.com/45719980/125233961-a44b8680-e31a-11eb-88fe-931d3c8de259.png">
 
 アルバムをクリックすると、そのアルバムに入っている楽曲を選択、試聴できる。  
-<img width="720" alt="album" src="https://user-images.githubusercontent.com/45719980/125233961-a44b8680-e31a-11eb-88fe-931d3c8de259.png">
+<img width="720" alt="track" src="https://user-images.githubusercontent.com/45719980/125233942-98f85b00-e31a-11eb-99c3-9eb9995c5ab1.png">
 
 # Getting Started with Create React App
 
