@@ -2,16 +2,14 @@ import {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import {withStyles} from '@material-ui/core/styles';
 import ArtistView from './ArtistView';
-import SimilarPage from './SimilarPage';
 import './Main.css';
 
 
 const Main = (props) => {
-    const [artist, setState] = useState('');
+    const [searchedArtist, setSearchArtist] = useState('');
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
-            console.log(event.target.value);
-            setState(event.target.value);
+            setSearchArtist(event.target.value);
         }
     }
 
@@ -26,7 +24,6 @@ const Main = (props) => {
             marginBottom: 50
         }
       })(TextField);
-      
 
     return (
         <div>
@@ -40,8 +37,7 @@ const Main = (props) => {
                     }}
                 />
             </div>
-            <ArtistView artist={artist} token={props.token} />
-            {/* <SimilarPage token={props.token} /> */}
+            <ArtistView searchedArtist={searchedArtist} setSearchArtist={setSearchArtist} token={props.token} />
         </div>
     )
 };

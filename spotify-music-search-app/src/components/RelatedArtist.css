@@ -1,0 +1,28 @@
+.related-artist-item > img {
+    width: 130px;
+    height: auto;
+}
+
+.related-artists {
+    display: grid;
+    gap: 10px;
+    
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-template-rows: 200px 200px 200px 200px;
+    font-size: 12px;
+}
+
+.related-artists-wrapper {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.related-artists-heading {
+    font-size: 24px;
+    text-align: left;
+    margin-top: 25px;
+    margin-right: 0px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+}
