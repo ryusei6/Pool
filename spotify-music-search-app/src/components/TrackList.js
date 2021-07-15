@@ -43,16 +43,16 @@ class MuiVirtualizedTable extends React.PureComponent {
 		rowHeight: 42
 	};
 
-	getRowClassName = ({ index }) => {
-		const { classes, onRowClick } = this.props;
+	getRowClassName = ({index}) => {
+		const {classes, onRowClick} = this.props;
 
 		return clsx(classes.tableRow, classes.flexContainer, {
 			[classes.tableRowHover]: index !== -1 && onRowClick != null
 		});
 	};
 
-	cellRenderer = ({ cellData, columnIndex }) => {
-		const { columns, classes, rowHeight, onRowClick } = this.props;
+	cellRenderer = ({cellData, columnIndex}) => {
+		const {columns, classes, rowHeight, onRowClick} = this.props;
 		return (
 			<TableCell
 				component='div'
@@ -60,7 +60,7 @@ class MuiVirtualizedTable extends React.PureComponent {
 					[classes.noClick]: onRowClick == null
 				})}
 				variant='body'
-				style={{ height: rowHeight }}
+				style={{height: rowHeight}}
 				align={
 					(columnIndex != null && columns[columnIndex].numeric) || false
 						? 'right'
@@ -72,8 +72,8 @@ class MuiVirtualizedTable extends React.PureComponent {
 		);
 	};
 
-	headerRenderer = ({ label, columnIndex }) => {
-		const { headerHeight, columns, classes } = this.props;
+	headerRenderer = ({label, columnIndex}) => {
+		const {headerHeight, columns, classes} = this.props;
 
 		return (
 			<TableCell
@@ -84,7 +84,7 @@ class MuiVirtualizedTable extends React.PureComponent {
 					classes.noClick
 				)}
 				variant='head'
-				style={{ height: headerHeight }}
+				style={{height: headerHeight}}
 				align={columns[columnIndex].numeric || false ? 'right' : 'left'}
 			>
 				<span>{label}</span>
@@ -102,7 +102,7 @@ class MuiVirtualizedTable extends React.PureComponent {
 		} = this.props;
 		return (
 			<AutoSizer>
-				{({ height, width }) => (
+				{({height, width}) => (
 					<Table
 						height={height}
 						width={width}
@@ -115,7 +115,7 @@ class MuiVirtualizedTable extends React.PureComponent {
 						{...tableProps}
 						rowClassName={this.getRowClassName}
 					>
-						{columns.map(({ dataKey, ...other }, index) => {
+						{columns.map(({dataKey, ...other}, index) => {
 							return (
 								<Column
 									key={dataKey}

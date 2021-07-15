@@ -1,17 +1,24 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import TrackView from './TrackView';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import RelatedArtist from './RelatedArtist';
 
 
 const ArtistView = (props) => {
-    
     const [artistInformation, setArtistInformation] = useState([]);
     const [album, setAlbum] = useState([]);
+    const [currentArtistId, setCurrentArtistId] = useState('');
+    const [currentArtistName, setCurrentArtistName] = useState('');
+
     const getArtist = () => {
         setArtistInformation([]);
         setAlbum([]);
-        axios(`https://api.spotify.com/v1/search?q=${props.artist}&type=artist&limit=20`,{
+        axios(`https://api.spotify.com/v1/search`,{
+            params: {
+                q: props.searchedArtist,
+                type: 'artist',
+                limit: 20
+            },
             method: 'GET',
             headers: {Authorization: 'Bearer ' + props.token},
         }).then((artistContentsReaponse) => {
@@ -20,25 +27,29 @@ const ArtistView = (props) => {
             console.log('err:', err);
             localStorage.removeItem('access_token')
             console.log('access_tokenを削除しました。');
+            window.location.reload()
         });
     };
 
     useEffect(() => {
-        console.log(props);
-        if (props.artist === '') {
+        if (props.searchedArtist === '') {
             console.log('no-data');
         } else {
             getArtist();
         }
-    },　[props.artist]);
+    },　[props.searchedArtist]);
 
-
-    const trackView = (id) => {
-        axios(`https://api.spotify.com/v1/artists/${id}/albums?market=ES&limit=10`,{
+    const trackView = (id, name) => {
+        setCurrentArtistName(name)
+        axios(`https://api.spotify.com/v1/artists/${id}/albums`,{
+            params: {
+                market: 'JP',
+                limit: 20
+            },
             method: 'GET',
             headers: {Authorization: 'Bearer ' + props.token},
         }).then((tracksReaponse) => {
-            console.log(tracksReaponse.data.items);
+            setCurrentArtistId(id);
             setAlbum(tracksReaponse.data.items);
         }).catch((err) => {
             console.log('err:', err);
@@ -48,12 +59,20 @@ const ArtistView = (props) => {
 
     return (
         <div>
-            {artistInformation.map(({name, id}) => (
+            {artistInformation.map(({id, name}) => (
                 <div key={id}>
-                    <p onClick={() => trackView(id)}>{name}</p>
+                    <p onClick={() => trackView(id, name)}>{name}</p>
                 </div>
             ))}
+            
             <TrackView album={album} token={props.token} />
+            <RelatedArtist
+                currentArtistName={currentArtistName}
+                setSearchArtist={props.setSearchArtist}
+                currentArtistId={currentArtistId}
+                token={props.token}
+                trackView={trackView}
+            />
         </div>
     )
 };

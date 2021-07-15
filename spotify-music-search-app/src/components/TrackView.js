@@ -9,7 +9,6 @@ import './TrackView.css';
 const TrackView = (props) => {
     const [albumTrack, setAlbumTrack] = useState([]);
     const [albumImg, setAlbumImg] = useState('')
-    const [trackId, setTrackId] = useState('')
     const [trackName, setTrackName] = useState('')
     const [artistNames, setArtistNames] = useState('')
     const [previewUrl, setPreviewUrl] = useState('')
@@ -18,7 +17,6 @@ const TrackView = (props) => {
         setArtistNames(artists.map(artist => artist.name).join(', '))
         setTrackName(name)
         setPreviewUrl(preview_url)
-        console.log(preview_url);
     };
 
     useEffect(() => {
@@ -32,16 +30,19 @@ const TrackView = (props) => {
     const albumTrackPreview = (id) => {
         axios(`https://api.spotify.com/v1/albums/${id}`, {
             method: 'GET',
-            headers: { Authorization: 'Bearer ' + props.token },
+            headers: {Authorization: 'Bearer ' + props.token}
         }).then((albumReaponse) => {
             setAlbumImg(albumReaponse.data.images[1].url);
         }).catch((err) => {
             console.log('err:', err);
         });
-
-        axios(`https://api.spotify.com/v1/albums/${id}/tracks?market=JP&limit=40`, {
+        axios(`https://api.spotify.com/v1/albums/${id}/tracks`, {
+            params: {
+                market: 'JP',
+                limit: 40
+            },
             method: 'GET',
-            headers: { Authorization: 'Bearer ' + props.token },
+            headers: {Authorization: 'Bearer ' + props.token},
         }).then((tracksReaponse) => {
             setArtistNames('')
             setTrackName('')
@@ -52,11 +53,10 @@ const TrackView = (props) => {
         });
     };
 
-
     return (
-        <div className='container'>
-            <div className='albumPreview'>
-                <div className='trackPreview'>
+        <div className='album-wrapper'>
+            {albumImg &&
+                <div className='track-preview'>
                     <img src={albumImg}></img>
                     <div className='track-text-area'>
                         <div className='artist-names'>
@@ -70,26 +70,30 @@ const TrackView = (props) => {
                         </div>
                     </div>
                 </div>
-
-                {albumTrack.length
-                    ? <TrackList className='track-list' albumTrack={albumTrack} trackChange={trackChange}/>
-                    : ''
-                }
-            </div>
-            <div className='album-wapper'>
-                <div className='album'>
-                    {props.album.map(({images, name, id}) => (
-                        <div
-                            className='album-item'
-                            onClick={() => albumTrackPreview(id)}
-                            key={id}
-                        >
-                        <img src={images[1].url} />
-                        <p>{name}</p>
+            }
+            {albumTrack.length
+                ? <TrackList className='track-list' albumTrack={albumTrack} trackChange={trackChange}/>
+                : ''
+            }
+            {!!props.album.length &&
+                <div className='album-list'>
+                        <div className='album-heading'>
+                            アルバム
                         </div>
-                    ))}
+                        <div className='album'>
+                            {props.album.map(({images, name, id}) => (
+                                <div
+                                    className='album-item'
+                                    onClick={() => albumTrackPreview(id)}
+                                    key={id}
+                                >
+                                <img src={images[1].url} />
+                                <p>{name}</p>
+                                </div>
+                            ))}
+                        </div>
                 </div>
-            </div>
+            }
         </div>
     );
 };
