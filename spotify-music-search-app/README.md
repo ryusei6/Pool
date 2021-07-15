@@ -1,5 +1,6 @@
 # spotify-music-search-app
 楽曲の検索、再生をするWebアプリ  
+https://spotify-music-search-app.web.app/
 
 ## 概要
 アーティスト名を入力すると、そのアーティストのアルバムが表示される。  
@@ -21,12 +22,6 @@
 ### ローカルで動かす
 ```
 $ npm start
-```
-
-### deploy
-```
-$ npm run build
-$ firebase deploy
 ```
 
 ## 参考
