@@ -78,7 +78,7 @@ const TrackView = (props) => {
             {!!props.album.length &&
                 <div className='album-list'>
                         <div className='album-heading'>
-                            アルバム
+                            {props.currentArtistName} のアルバム
                         </div>
                         <div className='album'>
                             {props.album.map(({images, name, id}) => (

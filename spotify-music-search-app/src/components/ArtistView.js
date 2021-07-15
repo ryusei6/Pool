@@ -22,6 +22,7 @@ const ArtistView = (props) => {
             method: 'GET',
             headers: {Authorization: 'Bearer ' + props.token},
         }).then((artistContentsReaponse) => {
+            props.setSearchArtist('');
             setArtistInformation(artistContentsReaponse.data.artists.items);
         }).catch((err) => {
             console.log('err:', err);
@@ -44,7 +45,7 @@ const ArtistView = (props) => {
         axios(`https://api.spotify.com/v1/artists/${id}/albums`,{
             params: {
                 market: 'JP',
-                limit: 20
+                limit: 4*4
             },
             method: 'GET',
             headers: {Authorization: 'Bearer ' + props.token},
@@ -65,12 +66,14 @@ const ArtistView = (props) => {
                 </div>
             ))}
             
-            <TrackView album={album} token={props.token} />
+            <TrackView currentArtistName={currentArtistName} album={album} token={props.token} />
             <RelatedArtist
                 currentArtistName={currentArtistName}
+                setCurrentArtistName={setCurrentArtistName}
                 setSearchArtist={props.setSearchArtist}
                 currentArtistId={currentArtistId}
                 token={props.token}
+                album={album}
                 trackView={trackView}
             />
         </div>

@@ -25,13 +25,19 @@ const RelatedArtist = (props) => {
         }
     }, [props.currentArtistId]);
 
+    useEffect(() => {
+        if (props.currentArtistId !== '') {
+            setRelatedArtist([])
+        }
+    }, [props.album]);
+
     const relatedArtistPreview = (id, name) => {
         props.trackView(id, name)
     }
 
     return (
         <div className='related-artists-wrapper'>
-            {props.currentArtistName &&
+            {!!relatedArtist.length &&
                 <div>
                     <div className='related-artists-heading'>
                         {props.currentArtistName} に関連したアーティスト
