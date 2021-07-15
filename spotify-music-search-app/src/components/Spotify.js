@@ -1,15 +1,9 @@
-export const  authEndpoint = 'https://accounts.spotify.com/authorize';
 
-const redirectUri = 'http://localhost:3000/';
-const clientId = 'b3d5e3ea6f6248a5be25acdddd97cf84';
+export const authEndpoint = 'https://accounts.spotify.com/authorize';
 
-const scopes = [
-  'user-read-currently-playing',
-  'user-read-recently-played',
-  'user-read-playback-state',
-  'user-top-read',
-  'user-modify-playback-state',
-];
+const redirectUri = process.env.REACT_APP_REDIRECT_URI;
+const clientId = process.env.REACT_APP_CLIENT_ID;
+const scopes = [];
 
 export const getTokenFromUrl = () => {
   return window.location.hash
