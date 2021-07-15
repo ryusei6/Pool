@@ -52,12 +52,15 @@
     text-align: left;
 }
 
-.artist-names {
+.album-name {
+    font-size: 24px;
     margin-top: 10px;
     margin-bottom: 20px;
-    font-size: 24px;
-    margin-right: auto;
-    margin-left: auto;
+}
+
+.artist-names {
+    margin-bottom: 10px;
+    font-size: 16px;
 }
 
 .track-name {

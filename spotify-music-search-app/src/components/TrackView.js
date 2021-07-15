@@ -12,6 +12,7 @@ const TrackView = (props) => {
     const [trackName, setTrackName] = useState('')
     const [artistNames, setArtistNames] = useState('')
     const [previewUrl, setPreviewUrl] = useState('')
+    const [albumName, setAlbumName] = useState('')
 
     const trackChange = (artists, name, preview_url) => {
         setArtistNames(artists.map(artist => artist.name).join(', '))
@@ -27,7 +28,7 @@ const TrackView = (props) => {
         setPreviewUrl('')
     }, [props.album])
 
-    const albumTrackPreview = (id) => {
+    const albumTrackPreview = (id, name) => {
         axios(`https://api.spotify.com/v1/albums/${id}`, {
             method: 'GET',
             headers: {Authorization: 'Bearer ' + props.token}
@@ -47,6 +48,7 @@ const TrackView = (props) => {
             setArtistNames('')
             setTrackName('')
             setPreviewUrl('')
+            setAlbumName(name)
             setAlbumTrack(tracksReaponse.data.items);
         }).catch((err) => {
             console.log('err:', err);
@@ -59,12 +61,12 @@ const TrackView = (props) => {
                 <div className='track-preview'>
                     <img src={albumImg}></img>
                     <div className='track-text-area'>
-                        <div className='artist-names'>
-                            {artistNames}
+                        <div className='album-name'>
+                            {albumName}
                         </div>
-                        <div className='track-name'>
-                            {trackName}
-                        </div>
+                            {artistNames
+                                && <div className='track-name'>{trackName} / {artistNames}</div>
+                            }
                         <div className='preview-url'>
                             {previewUrl ? <ReactAudioPlayer src={previewUrl} controls loop={false} /> : ''}
                         </div>
@@ -84,7 +86,7 @@ const TrackView = (props) => {
                             {props.album.map(({images, name, id}) => (
                                 <div
                                     className='album-item'
-                                    onClick={() => albumTrackPreview(id)}
+                                    onClick={() => albumTrackPreview(id, name)}
                                     key={id}
                                 >
                                 <img src={images[1].url} />
