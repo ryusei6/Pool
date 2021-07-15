@@ -33,9 +33,7 @@ const ArtistView = (props) => {
     };
 
     useEffect(() => {
-        if (props.searchedArtist === '') {
-            console.log('no-data');
-        } else {
+        if (props.searchedArtist !== '') {
             getArtist();
         }
     },　[props.searchedArtist]);
