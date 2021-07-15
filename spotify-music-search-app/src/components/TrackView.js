@@ -64,9 +64,9 @@ const TrackView = (props) => {
                         <div className='album-name'>
                             {albumName}
                         </div>
-                            {artistNames
-                                && <div className='track-name'>{trackName} / {artistNames}</div>
-                            }
+                        {artistNames
+                            && <div className='track-name'>{trackName} / {artistNames}</div>
+                        }
                         <div className='preview-url'>
                             {previewUrl ? <ReactAudioPlayer src={previewUrl} controls loop={false} /> : ''}
                         </div>
