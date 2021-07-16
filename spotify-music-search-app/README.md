@@ -10,7 +10,7 @@ https://spotify-music-search-app.web.app/
 <img width="720" alt="track" src="https://user-images.githubusercontent.com/45719980/125818546-ff5574fd-6cc9-4cdc-a214-5fbba05f5b32.png">
 
 
-おすすめのアーティストを表示する。
+おすすめのアーティストを表示する。　　
 <img width="720" alt="recommend" src="https://user-images.githubusercontent.com/45719980/125896090-595d2791-12bd-4295-9642-bbb6caedcfd8.png">
 
 
